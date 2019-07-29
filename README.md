@@ -82,4 +82,4 @@ If you find this code useful for your research, please cite our paper:
 ```
 
 ## Author
-[Junho Kim](http://bit.ly/jhkim_ai)
+[Junho Kim](http://bit.ly/jhkim_ai), Minjae Kim, Hyeonwoo Kang, Kwanghee Lee
