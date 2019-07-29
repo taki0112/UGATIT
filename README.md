@@ -33,7 +33,7 @@
 ```
 > python main.py --dataset selfie2anime
 ```
-* If gpu memory is **not sufficient**, set `--light` to True
+* If the memory of gpu is **not sufficient**, set `--light` to True
 
 ### Test
 ```
