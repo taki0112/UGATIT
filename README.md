@@ -63,7 +63,7 @@
   <img src = './assets/user_study.png' width = '738px' height = '187px'>
 </div>
 
-### Kernel Inception Distance (KID)
+### Comparison
 <div align="center">
   <img src = './assets/kid.png' width = '787px' height = '344px'>
 </div>
