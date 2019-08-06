@@ -41,7 +41,7 @@ The results of the paper came from the **Tensorflow code**
 > python main.py --dataset selfie2anime
 ```
 * If the memory of gpu is **not sufficient**, set `--light` to **True**
-  * But it may not perform well
+  * But it may **not** perform well
   * paper version is `--light` to **False**
 
 ### Test
