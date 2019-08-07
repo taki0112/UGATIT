@@ -3,7 +3,7 @@ resources:
   type: compute.v1.instance
   properties:
     zone: {{ properties["zone"] }}
-    machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/{{ properties["machineType"] }}
+    machineType: zones/{{ properties["zone"] }}/machineTypes/{{ properties["machineType"] }}
     disks:
     - deviceName: boot
       type: PERSISTENT
@@ -32,7 +32,7 @@ resources:
        value: "True"
     {% if properties["gpu-type"] %}
     guestAccelerators:
-      - acceleratorType: {{ properties["gpu-type"] }}
+      - acceleratorType: projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/acceleratorTypes/{{ properties["gpu-type"] }}
         acceleratorCount: {{ properties["gpu-count"] }}
     scheduling:
       onHostMaintenance: "TERMINATE"

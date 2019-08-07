@@ -17,23 +17,27 @@ The results of the paper came from the **Tensorflow code**
 
 ## Setup
 
+### Conda
+
 ```bash
 conda env create -f environment.yml
 conda activate UGATIT
 ```
 
-### GCP Deploy
+### Dataset
 
-```bash
-./deploy.sh <project_id> <resource> <action>
+I've used the following datasets for training:
 
-# Create Example
-./deploy.sh <project_id> iam create
-./deploy.sh <project_id> iam notebook
-```
+* [https://www.crcv.ucf.edu/data/Selfie/](https://www.crcv.ucf.edu/data/Selfie/)
+* [https://www.gwern.net/Danbooru2018](https://www.gwern.net/Danbooru2018)
+
+#### Image Resizing
+
+Images need to be sized to 256x256. You can do this by using the `resize.py` script and change up the target path containing images
 
 ## Usage
-```
+
+```bash
 ├── dataset
    └── YOUR_DATASET_NAME
        ├── trainA
