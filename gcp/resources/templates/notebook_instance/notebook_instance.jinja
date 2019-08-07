@@ -1,0 +1,51 @@
+resources:
+- name: {{ env["name"] }}
+  type: compute.v1.instance
+  properties:
+    zone: {{ properties["zone"] }}
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/{{ properties["machineType"] }}
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/deeplearning-platform-release/global/images/family/{{ properties["imageFamily"] }}
+    networkInterfaces:
+    {% if properties["network"] %}
+    - network: {{ properties["network"] }}
+    {% else %}
+    - network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
+    {% endif %}
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+    metadata:
+     items:
+     {% if properties["mail"] %}
+     - key: proxy-user-mail
+       value: {{ properties["mail"] }}
+     {% endif %}
+     - key: proxy-mode
+       value: {{ properties["proxy-mode"] }}
+     - key: install-nvidia-driver
+       value: "True"
+    {% if properties["gpu-type"] %}
+    guestAccelerators:
+      - acceleratorType: {{ properties["gpu-type"] }}
+        acceleratorCount: {{ properties["gpu-count"] }}
+    scheduling:
+      onHostMaintenance: "TERMINATE"
+    {% endif %}
+    serviceAccounts:
+    {% if properties["service-account"] %}
+      - email: {{ properties["service-account"] }}
+        scopes:
+        - https://www.googleapis.com/auth/cloud-platform
+        - https://www.googleapis.com/auth/userinfo.email
+    {% else %}
+      - email: {{ env["project_number"] }}-compute@developer.gserviceaccount.com
+        scopes:
+        - https://www.googleapis.com/auth/cloud-platform
+        - https://www.googleapis.com/auth/userinfo.email
+    {% endif %}

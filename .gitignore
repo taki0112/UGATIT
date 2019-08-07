@@ -102,3 +102,16 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# IDE
+.vscode/
+
+# Input
+dataset/*
+!dataset/.gitkeep
+
+# Output
+checkpoint/
+logs/
+results/
+samples/

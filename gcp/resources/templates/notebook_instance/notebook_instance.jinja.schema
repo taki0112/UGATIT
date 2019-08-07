@@ -1,0 +1,51 @@
+info:
+  title: AI Platform Notebook Template
+  author: Viacheslav V Kovalevskyi (viacheslav@kovalevskyi.com)
+  description: Creates a new notebook instance
+  version: 1.0
+
+imports:
+- path: notebook_instance.jinja
+
+properties:
+  zone:
+    type: string
+    description: Zone where notebook will be deployed
+    default: "us-west1-b"
+
+  machineType:
+    type: string
+    default: "g1-small"
+    description: "Type of the VM to use. Please see: https://cloud.google.com/compute/docs/machine-types"
+
+  imageFamily:
+    type: string
+    default: "common-cpu"
+    description: "Type of the Notebook to use. Please see: https://cloud.google.com/deep-learning-vm/docs/images"
+
+  proxy-mode:
+    type: string
+    enum: ["service_account", "mail"]
+    default: "service_account"
+    description: Access mode.
+
+  mail:
+    type: string
+    default: ""
+    description: Should be set ONLY if "proxy_mode" is set to "mail". Otehrwise no-op. 
+
+  service-account:
+    type: string
+    default: ""
+    description: ServiceAccount to use with the Notebook instance. By default GCE service account is used. 
+
+  gpu-type:
+    type: string
+    default: ""
+    enum: ["", "nvidia-tesla-t4", "nvidia-tesla-k80", "nvidia-tesla-p4", "nvidia-tesla-p100", "nvidia-tesla-v100"]
+    description: Accelerator to use.
+
+  gpu-count:
+    type: number
+    default: 1
+    description: Amount of accelerators to use. 
