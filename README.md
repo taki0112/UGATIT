@@ -71,7 +71,7 @@ The results of the paper came from the **Tensorflow code**
   <img src = './assets/user_study.png' width = '738px' height = '187px'>
 </div>
 
-### Comparison
+### Kernel Inception Distance (KID)
 <div align="center">
   <img src = './assets/kid.png' width = '787px' height = '344px'>
 </div>
