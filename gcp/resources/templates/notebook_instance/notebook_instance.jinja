@@ -11,6 +11,9 @@ resources:
       autoDelete: true
       initializeParams:
         sourceImage: https://www.googleapis.com/compute/v1/projects/deeplearning-platform-release/global/images/family/{{ properties["imageFamily"] }}
+        {% if properties["disk-size"] %}
+        diskSizeGb: {{ properties["disk-size"] }}
+        {% endif %}
     networkInterfaces:
     {% if properties["network"] %}
     - network: {{ properties["network"] }}
@@ -30,6 +33,10 @@ resources:
        value: {{ properties["proxy-mode"] }}
      - key: install-nvidia-driver
        value: "True"
+     {% if properties["startup-script"] %}
+     - key: startup-script
+       value: {{ properties["startup-script"] }}
+     {% endif %}
     {% if properties["gpu-type"] %}
     guestAccelerators:
       - acceleratorType: projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/acceleratorTypes/{{ properties["gpu-type"] }}
