@@ -6,9 +6,8 @@ resources:
   type: notebook_instance.jinja
   properties:
     machineType: n1-standard-4
-    imageFamily: common-cu101
+    imageFamily: tf-latest-gpu
     gpu-type: nvidia-tesla-v100
     gpu-count: 1
     zone: us-west1-b # Zone supporting K80s
-    startup-script: git clone https://github.com/t04glovern/UGATIT /home/jupyter/UGATIT
     disk-size: 30
