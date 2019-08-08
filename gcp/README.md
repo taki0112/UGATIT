@@ -17,7 +17,7 @@ Run these from the root of the project (up one level)
 ```bash
 gsutil -m rsync -d -r dataset gs://devopstar/projects/data-science/UGATIT/dataset
 gsutil -m rsync -d -r samples gs://devopstar/projects/data-science/UGATIT/samples
-gsutil -m cp checkpoint/*/UGATIT_light.model-13000.* gs://devopstar/projects/data-science/UGATIT/checkpoint
+gsutil -m cp checkpoint/*/UGATIT_light.model-XXXXX.* gs://devopstar/projects/data-science/UGATIT/checkpoint
 ```
 
 ### Download
