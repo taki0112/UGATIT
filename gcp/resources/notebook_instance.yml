@@ -5,9 +5,9 @@ resources:
 - name: ugatit-gpu-notebook
   type: notebook_instance.jinja
   properties:
-    machineType: n1-highmem-8
+    machineType: n1-standard-16
     imageFamily: tf-latest-gpu
     gpu-type: nvidia-tesla-v100
     gpu-count: 1
-    zone: us-west1-b # Zone supporting K80s
+    zone: us-west1-b
     disk-size: 30
