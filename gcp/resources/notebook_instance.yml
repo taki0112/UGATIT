@@ -7,7 +7,7 @@ resources:
   properties:
     machineType: n1-standard-8
     imageFamily: tf-latest-gpu
-    gpu-type: nvidia-tesla-k80
-    gpu-count: 2
-    zone: us-west1-b
+    gpu-type: nvidia-tesla-p100
+    gpu-count: 1
+    zone: australia-southeast1-c
     disk-size: 30
