@@ -36,6 +36,16 @@ def load_test_data(image_path, size=256):
 
     return img
 
+def load_img(img, size=256):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    img = cv2.resize(img, dsize=(size, size))
+
+    img = np.expand_dims(img, axis=0)
+    img = img/127.5 - 1
+
+    return img
+
 def augmentation(image, augment_size):
     seed = random.randint(0, 2 ** 31 - 1)
     ori_image_shape = tf.shape(image)
@@ -56,6 +66,19 @@ def imsave(images, size, path):
     images = cv2.cvtColor(images.astype('uint8'), cv2.COLOR_RGB2BGR)
 
     return cv2.imwrite(path, images)
+
+def web_save_images(images, size):
+    return web_imsave(web_inverse_transform(images), size)
+
+def web_inverse_transform(images):
+    return ((images+1.) / 2) * 255.0
+
+
+def web_imsave(images, size):
+    images = merge(images, size)
+    images = cv2.cvtColor(images.astype('uint8'), cv2.COLOR_RGB2BGR)
+
+    return images
 
 def merge(images, size):
     h, w = images.shape[1], images.shape[2]

@@ -9,3 +9,8 @@ dependencies:
   - pip:
     - opencv-python
     - Pillow
+    - flask
+    - jsonpickle
+    - requests
+    - flask-uploads
+    - flask-dropzone

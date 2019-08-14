@@ -74,6 +74,12 @@ Images need to be sized to 256x256. You can do this by using the `resize.py` scr
 > python main.py --dataset selfie2anime --phase test
 ```
 
+### Web Interface
+
+```bash
+> python main.py --dataset selfie2anime --phase web
+```
+
 ## Architecture
 
 <div align="center">

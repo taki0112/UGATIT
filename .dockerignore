@@ -1,0 +1,13 @@
+dataset/
+logs/
+results/
+samples/
+assets/
+.vscode/
+__pycache__/
+gcp/
+video/
+uploads/
+Dockerfile
+.dockerignore
+docker-compose.yml

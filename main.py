@@ -1,14 +1,43 @@
 from UGATIT import UGATIT
 import argparse
+from flask import Flask, request, Response, render_template, redirect, session, url_for
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from flask_dropzone import Dropzone
+import os
 from utils import *
+import cv2
+import io
+import numpy
+import jsonpickle
+import uuid
+
+
+app = Flask(__name__)
+dropzone = Dropzone(app)
+
+
+app.config['SECRET_KEY'] = 'supersecretkeygoeshere'
+
+# Dropzone settings
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = False
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
+app.config['DROPZONE_REDIRECT_VIEW'] = 'results'
+
+# Uploads settings
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/uploads'
+
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+patch_request_class(app)  # set maximum file size, default is 16MB
 
 """parsing and configuration"""
 
 def parse_args():
     desc = "Tensorflow implementation of U-GAT-IT"
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('--phase', type=str, default='train', help='[train / test]')
-    parser.add_argument('--light', type=str2bool, default=False, help='[U-GAT-IT full version / U-GAT-IT light version]')
+    parser.add_argument('--phase', type=str, default='web', help='[train / test / web]')
+    parser.add_argument('--light', type=str2bool, default=True, help='[U-GAT-IT full version / U-GAT-IT light version]')
     parser.add_argument('--dataset', type=str, default='selfie2anime', help='dataset_name')
 
     parser.add_argument('--epoch', type=int, default=100, help='The number of epochs to run')
@@ -101,6 +130,71 @@ def main():
         if args.phase == 'test' :
             gan.test()
             print(" [*] Test finished!")
+
+        if args.phase == 'web' :
+            app.run(host="0.0.0.0", port=5000)
+
+
+# route http posts to this method
+@app.route('/', methods=['GET', 'POST'])
+def index():
+
+    # set session for image results
+    if "file_urls" not in session:
+        session['file_urls'] = []
+    # list to hold our uploaded image urls
+    file_urls = session['file_urls']
+
+    if request.method == 'POST':
+        file_obj = request.files
+        for f in file_obj:
+            file = request.files.get(f)
+
+            # convert string of image data to uint8
+            nparr = np.fromfile(file, np.uint8)
+            # decode image
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+            # parse arguments
+            args = parse_args()
+            if args is None:
+                exit()
+
+            # open session
+            with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
+                gan = UGATIT(sess, args)
+
+                # build graph
+                gan.build_model()
+
+                # show network architecture
+                show_all_variables()
+
+                # do some fancy processing here....
+                fake_img = gan.test_endpoint(img)
+
+                # save the file with to our photos folder
+                filename = str(uuid.uuid1()) + '.png'
+                cv2.imwrite('uploads/' + filename, fake_img)
+                # append image urls
+                file_urls.append(photos.url(filename))
+
+        session['file_urls'] = file_urls
+        return "uploading..."
+    return render_template('index.html')
+
+@app.route('/results')
+def results():
+    
+    # redirect to home if no images to display
+    if "file_urls" not in session or session['file_urls'] == []:
+        return redirect(url_for('index'))
+        
+    # set the file_urls and remove the session variable
+    file_urls = session['file_urls']
+    session.pop('file_urls', None)
+    
+    return render_template('results.html', file_urls=file_urls)
 
 if __name__ == '__main__':
     main()
