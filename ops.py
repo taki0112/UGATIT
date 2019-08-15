@@ -191,12 +191,10 @@ def adaptive_instance_layer_norm(x, gamma, beta, smoothing=True, scope='instance
         ln_mean, ln_sigma = tf.nn.moments(x, axes=[1, 2, 3], keep_dims=True)
         x_ln = (x - ln_mean) / (tf.sqrt(ln_sigma + eps))
 
-        if smoothing :
-            rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(0.9), constraint=lambda x : tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=0.9))
-        else :
-            rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(1.0), constraint=lambda x: tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=1.0))
+        rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(1.0), constraint=lambda x: tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=1.0))
 
-        # rho = tf.clip_by_value(rho - tf.constant(0.1), 0.0, 1.0)
+        if smoothing :
+            rho = tf.clip_by_value(rho - tf.constant(0.1), 0.0, 1.0)
 
         x_hat = rho * x_ins + (1 - rho) * x_ln
 

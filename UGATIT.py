@@ -634,7 +634,7 @@ class UGATIT(object) :
 
         for sample_file  in test_A_files : # A -> B
             print('Processing A image: ' + sample_file)
-            sample_image = np.asarray(load_test_data(sample_file))
+            sample_image = np.asarray(load_test_data(sample_file, size=self.img_size))
             image_path = os.path.join(self.result_dir,'{0}'.format(os.path.basename(sample_file)))
 
             fake_img = self.sess.run(self.test_fake_B, feed_dict = {self.test_domain_A : sample_image})
@@ -650,7 +650,7 @@ class UGATIT(object) :
 
         for sample_file  in test_B_files : # B -> A
             print('Processing B image: ' + sample_file)
-            sample_image = np.asarray(load_test_data(sample_file))
+            sample_image = np.asarray(load_test_data(sample_file, size=self.img_size))
             image_path = os.path.join(self.result_dir,'{0}'.format(os.path.basename(sample_file)))
 
             fake_img = self.sess.run(self.test_fake_A, feed_dict = {self.test_domain_B : sample_image})
