@@ -1,8 +1,18 @@
 import tensorflow as tf
 from tensorflow.contrib import slim
+import matplotlib.image as mpimg
 import cv2
 import os, random
 import numpy as np
+import base64
+from PIL import Image
+import io
+import boto3
+import time
+import tempfile
+
+queue_name = os.environ['QUEUE_NAME']
+bucket_name = os.environ['BUCKET_NAME']
 
 class ImageData:
 
@@ -101,3 +111,68 @@ def check_folder(log_dir):
 
 def str2bool(x):
     return x.lower() in ('true')
+
+def base64stringToImage(base64_string):
+    imgdata = base64.b64decode(str(base64_string))
+    image = Image.open(io.BytesIO(imgdata))
+    return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+
+def download_image(bucket, bucket_key):
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(bucket)
+    object = bucket.Object(bucket_key)
+    tmp = tempfile.NamedTemporaryFile()
+    with open(tmp.name, 'wb') as f:
+        object.download_fileobj(f)
+        img = mpimg.imread(tmp.name)
+        return img
+
+def upload_image(image):
+    s3 = boto3.client('s3')
+    file_name = 'outgoing/image-'+time.strftime("%Y%m%d-%H%M%S")+'.jpg'
+    image_string = cv2.imencode('.jpg', image)[1].tostring()
+    s3.put_object(Body=image_string, Bucket=bucket_name, Key=file_name)
+    file_url = s3.generate_presigned_url(
+        ClientMethod='get_object',
+        Params={
+            'Bucket': bucket_name,
+            'Key': file_name
+        },
+        ExpiresIn=86400
+    )
+    return file_url
+
+def get_messages_from_queue():
+    sqs_client = boto3.client('sqs')
+    response = sqs_client.get_queue_url(QueueName=queue_name)
+    queue_url = response['QueueUrl']
+
+    messages = []
+
+    while True:
+        resp = sqs_client.receive_message(
+            QueueUrl=queue_url,
+            AttributeNames=['All'],
+            MaxNumberOfMessages=10
+        )
+
+        try:
+            messages.extend(resp['Messages'])
+        except KeyError:
+            break
+
+        entries = [
+            {'Id': msg['MessageId'], 'ReceiptHandle': msg['ReceiptHandle']}
+            for msg in resp['Messages']
+        ]
+
+        resp = sqs_client.delete_message_batch(
+            QueueUrl=queue_url, Entries=entries
+        )
+
+        if len(resp['Successful']) != len(entries):
+            raise RuntimeError(
+                "Failed to delete messages: entries={entries} resp={resp}"
+            )
+
+    return messages

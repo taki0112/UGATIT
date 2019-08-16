@@ -5,11 +5,14 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_cl
 from flask_dropzone import Dropzone
 import os
 from utils import *
+from email_service import *
 import cv2
 import io
 import numpy
+import json
 import jsonpickle
 import uuid
+import time
 
 
 app = Flask(__name__)
@@ -106,12 +109,54 @@ def check_args(args):
         print('batch size must be larger than or equal to one')
     return args
 
+def runner(args):
+    # email service
+    email = EmailService()
+
+    # open session
+    with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
+        gan = UGATIT(sess, args)
+
+        # build graph
+        gan.build_model()
+
+        # show network architecture
+        show_all_variables()
+
+        while True:
+            messages = get_messages_from_queue()
+            for message in messages:
+                body = json.loads(message['Body'])
+                print(body)
+                bucket = body['bucket_name']
+                bucket_key = body['bucket_key']
+                email_addr = body['email']
+
+                image = download_image(bucket, bucket_key)
+
+                # do some fancy processing here....
+                fake_img = gan.test_endpoint(image)
+                
+                # Upload to S3
+                image_url = upload_image(fake_img)
+
+                # Send Email
+                email.send_email(email_addr, image_url)
+            time.sleep(10)
+
+
 """main"""
 def main():
     # parse arguments
     args = parse_args()
     if args is None:
       exit()
+
+    if args.phase == 'runner' :
+        runner(args)
+
+    if args.phase == 'web' :
+        app.run(host="0.0.0.0", port=5000)
 
     # open session
     with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
@@ -130,10 +175,6 @@ def main():
         if args.phase == 'test' :
             gan.test()
             print(" [*] Test finished!")
-
-        if args.phase == 'web' :
-            app.run(host="0.0.0.0", port=5000)
-
 
 # route http posts to this method
 @app.route('/', methods=['GET', 'POST'])
