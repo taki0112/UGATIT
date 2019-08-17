@@ -131,11 +131,22 @@ def runner(args):
                 bucket = body['bucket_name']
                 bucket_key = body['bucket_key']
                 email_addr = body['email']
+                crop = body['crop']
 
                 image = download_image(bucket, bucket_key)
 
+                # Crop params
+                x = crop['x']
+                y = crop['y']
+                width = crop['width']
+                height = crop['height']
+                crop_img = image[y:y+height, x:x+width]
+                
+                # Resize image
+                crop_img = cv2.resize(crop_img, dsize=(256, 256))
+
                 # do some fancy processing here....
-                fake_img = gan.test_endpoint(image)
+                fake_img = gan.test_endpoint(crop_img)
                 
                 # Upload to S3
                 image_url = upload_image(fake_img)
