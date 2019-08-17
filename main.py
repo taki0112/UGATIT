@@ -126,36 +126,39 @@ def runner(args):
         while True:
             messages = get_messages_from_queue()
             for message in messages:
-                body = json.loads(message['Body'])
-                print(body)
-                bucket = body['bucket_name']
-                bucket_key = body['bucket_key']
-                file_name = body['file_name']
-                email_addr = body['email']
-                crop = body['crop']
+                try:
+                    body = json.loads(message['Body'])
+                    print(body)
+                    bucket = body['bucket_name']
+                    bucket_key = body['bucket_key']
+                    file_name = body['file_name']
+                    email_addr = body['email']
+                    crop = body['crop']
 
-                image = download_image(bucket, bucket_key)
+                    image = download_image(bucket, bucket_key)
 
-                # Crop params
-                x = crop['x']
-                y = crop['y']
-                width = crop['width']
-                height = crop['height']
-                crop_img = image[y:y+height, x:x+width]
-                # Change color space
-                crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
-                
-                # Resize image
-                crop_img = cv2.resize(crop_img, dsize=(256, 256))
+                    # Crop params
+                    x = crop['x']
+                    y = crop['y']
+                    width = crop['width']
+                    height = crop['height']
+                    crop_img = image[y:y+height, x:x+width]
+                    # Change color space
+                    crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
+                    
+                    # Resize image
+                    crop_img = cv2.resize(crop_img, dsize=(256, 256))
 
-                # do some fancy processing here....
-                fake_img = gan.test_endpoint(crop_img)
-                
-                # Upload to S3
-                image_url = upload_image(fake_img, file_name)
+                    # do some fancy processing here....
+                    fake_img = gan.test_endpoint(crop_img)
+                    
+                    # Upload to S3
+                    image_url = upload_image(fake_img, file_name)
 
-                # Send Email
-                email.send_email(email_addr, image_url)
+                    # Send Email
+                    email.send_email(email_addr, image_url)
+                except:
+                    print("An error occured for: " + message)
             time.sleep(10)
 
 
