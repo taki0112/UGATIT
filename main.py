@@ -158,7 +158,7 @@ def runner(args):
                     # Send Email
                     email.send_email(email_addr, image_url)
                 except:
-                    print("An error occured for: " + message)
+                    print("An error occured")
             time.sleep(10)
 
 
