@@ -4,6 +4,7 @@ dependencies:
   - tensorflow-gpu
   - tensorboard
   - jupyter
+  - matplotlib
   - numpy
   - pip
   - pip:
@@ -14,3 +15,4 @@ dependencies:
     - requests
     - flask-uploads
     - flask-dropzone
+    - boto3
