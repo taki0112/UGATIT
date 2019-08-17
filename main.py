@@ -130,6 +130,7 @@ def runner(args):
                 print(body)
                 bucket = body['bucket_name']
                 bucket_key = body['bucket_key']
+                file_name = body['file_name']
                 email_addr = body['email']
                 crop = body['crop']
 
@@ -151,7 +152,7 @@ def runner(args):
                 fake_img = gan.test_endpoint(crop_img)
                 
                 # Upload to S3
-                image_url = upload_image(fake_img)
+                image_url = upload_image(fake_img, file_name)
 
                 # Send Email
                 email.send_email(email_addr, image_url)

@@ -127,9 +127,9 @@ def download_image(bucket, bucket_key):
         img = mpimg.imread(tmp.name)
         return img
 
-def upload_image(image):
+def upload_image(image, file_name):
     s3 = boto3.client('s3')
-    file_name = 'outgoing/image-'+time.strftime("%Y%m%d-%H%M%S")+'.jpg'
+    file_name = 'outgoing/' + file_name
     image_string = cv2.imencode('.jpg', image)[1].tostring()
     s3.put_object(Body=image_string, Bucket=bucket_name, Key=file_name)
     file_url = s3.generate_presigned_url(
