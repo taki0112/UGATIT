@@ -141,6 +141,8 @@ def runner(args):
                 width = crop['width']
                 height = crop['height']
                 crop_img = image[y:y+height, x:x+width]
+                # Change color space
+                crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
                 
                 # Resize image
                 crop_img = cv2.resize(crop_img, dsize=(256, 256))
