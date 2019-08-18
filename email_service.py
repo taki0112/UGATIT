@@ -29,7 +29,7 @@ class EmailService(object):
 
     def build_email(self, email_addr, image_url):
         email = MIMEMultipart()
-        email['Subject'] = 'selfie2anime Complete!'
+        email['Subject'] = 'Your Anime Selfie is ready!'
         email['From'] = environ.get('SENDER_EMAIL')
         email['To'] = email_addr
 

@@ -110,9 +110,6 @@ def check_args(args):
     return args
 
 def runner(args):
-    # email service
-    email = EmailService()
-
     # open session
     with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
         gan = UGATIT(sess, args)
@@ -125,6 +122,8 @@ def runner(args):
 
         while True:
             messages = get_messages_from_queue()
+            # email service
+            email = EmailService()
             for message in messages:
                 try:
                     body = json.loads(message['Body'])
