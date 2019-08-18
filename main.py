@@ -133,31 +133,49 @@ def runner(args):
                     file_name = body['file_name']
                     email_addr = body['email']
                     crop = body['crop']
-
-                    image = download_image(bucket, bucket_key)
-
                     # Crop params
                     x = crop['x']
                     y = crop['y']
                     width = crop['width']
                     height = crop['height']
+                except:
+                    print("ERROR: Parsing message")
+
+                try:
+                    image = download_image(bucket, bucket_key)
+                except:
+                    print("ERROR: Downloading Image")
+
+                try:
                     crop_img = image[y:y+height, x:x+width]
                     # Change color space
                     crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
-                    
+                except:
+                    print("ERROR: Cropping Image")
+                
+                try:
                     # Resize image
                     crop_img = cv2.resize(crop_img, dsize=(256, 256))
+                except:
+                    print("ERROR: Resizing Image")
 
+                try:
                     # do some fancy processing here....
                     fake_img = gan.test_endpoint(crop_img)
+                except:
+                    print("ERROR: Prosccing image with GAN")
                     
+                try:
                     # Upload to S3
                     image_url = upload_image(fake_img, file_name)
-
+                except:
+                    print("ERROR: Uploading image to S3")
+                
+                try:
                     # Send Email
                     email.send_email(email_addr, image_url)
                 except:
-                    print("An error occured")
+                    print("ERROR: Failed to send email")
             time.sleep(10)
 
 
