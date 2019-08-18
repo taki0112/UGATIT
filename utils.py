@@ -138,7 +138,7 @@ def upload_image(image, file_name):
             'Bucket': bucket_name,
             'Key': file_name
         },
-        ExpiresIn=86400
+        ExpiresIn=604800
     )
     return file_url
 
