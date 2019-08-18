@@ -1,187 +1,331 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Selfie2Anime Email</title>
-    <style type="text/css">
-        @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Selfie2Anime</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,400i,700,700i" rel="stylesheet">
+    <style>
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            background: #f1f1f1;
+        }
+
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
 
         img {
-            max-width: 600px;
-            outline: none;
-            text-decoration: none;
             -ms-interpolation-mode: bicubic;
         }
 
         a {
             text-decoration: none;
-            border: 0;
-            outline: none;
-            color: #312727;
         }
 
-        a img {
-            border: none;
+        *[x-apple-data-detectors],
+        .unstyle-auto-detected-links *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
         }
 
-        td,
-        h1,
-        h2,
-        h3 {
-            font-family: Merriweather Sans, sans-serif;
-            font-weight: 400;
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
         }
 
-        td {
-            text-align: center;
+        .im {
+            color: inherit !important;
+        }
+
+        img.g-img + div {
+            display: none !important;
+        }
+
+        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+            u ~ div .email-container {
+                min-width: 320px !important;
+            }
+        }
+
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            u ~ div .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+        @media only screen and (min-device-width: 414px) {
+            u ~ div .email-container {
+                min-width: 414px !important;
+            }
+        }
+    </style>
+    <style>
+        .bg_primary {
+            background: #f06292;
+        }
+
+        .text_primary {
+            color: #f06292;
+            font-weight: bold;
+        }
+
+        .try_again {
+            font-size: 2em;
+        }
+
+        .bg_white {
+            background: #fff;
+        }
+
+        .bg_dark {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        .email-section {
+            padding: 2.5em;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather Sans', sans-serif;
+            color: #000;
+            margin-top: 0;
         }
 
         body {
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: none;
-            width: 100%;
-            height: 100%;
-            color: #37302d;
-            background: #ffffff;
-            font-size: 16px;
+            font-family: 'Merriweather Sans', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, .7);
         }
 
-        table {
-            border-collapse: collapse !important;
+        a {
+            color: #f06292;
+            font-weight: bold;
         }
 
-        .headline {
-            color: #ffffff;
+        .logo h1 {
+            margin: 0;
+        }
+
+        .logo h1 a {
+            color: #000;
+            font-size: 24px;
             font-weight: 700;
-            font-size: 36px;
+            text-transform: uppercase;
+            font-family: 'Merriweather Sans', sans-serif;
         }
 
-        .force-full-width {
-            width: 100% !important;
+        .navigation {
+            padding: 0;
         }
 
-        .force-width-80 {
-            width: 80% !important;
+        .navigation li {
+            list-style: none;
+            display: inline-block;;
+            margin-left: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
-    </style>
 
-    <style type="text/css" media="screen">
-        @media screen {
-
-            td,
-            h1,
-            h2,
-            h3 {
-                font-family: 'Droid Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-            }
+        .navigation li a {
+            color: rgba(0, 0, 0, .6);
         }
-    </style>
 
-    <style type="text/css" media="only screen and (max-width: 480px)">
-        @media only screen and (max-width: 480px) {
+        .heading-section h2 {
+            color: #000;
+            font-size: 28px;
+            margin-top: 0;
+            line-height: 1.4;
+            font-weight: 700;
+        }
 
-            table[class="w320"] {
-                width: 320px !important;
-            }
+        .heading-section .subheading {
+            margin-bottom: 20px !important;
+            display: inline-block;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(0, 0, 0, .4);
+            position: relative;
+        }
 
-            td[class="mobile-block"] {
-                width: 100% !important;
-                display: block !important;
-            }
+        .heading-section .subheading::after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: #f5564e;
+            margin: 0 auto;
+        }
+
+        .heading-section-white {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        .heading-section-white h2 {
+            font-family: line-height: 1;
+            padding-bottom: 0;
+        }
+
+        .heading-section-white h2 {
+            color: #fff;
+        }
+
+        .heading-section-white .subheading {
+            margin-bottom: 0;
+            display: inline-block;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, .4);
         }
     </style>
 </head>
-
-<body class="body" style="padding:0; margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none"
-    bgcolor="#ffffff">
-    <table align="center" cellpadding="0" cellspacing="0" class="force-full-width" height="100%">
-        <tbody>
-            <tr>
-                <td align="center" valign="top" bgcolor="#ffffff" width="100%">
-                    <center>
-                        <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="600" class="w320">
-                            <tbody>
-                                <tr>
-                                    <td align="center" valign="top">
-                                        <table style="margin: 0 auto;" cellpadding="0" cellspacing="0"
-                                            class="force-full-width" bgcolor="#f06292">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="headline">Selfie2Anime アニメ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <hr>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <br>
-                                                        <img src="{{image_url}}" width="256" height="256"
-                                                            alt="anime picture">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <hr>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-
-                                                        <center>
-                                                            <table style="margin: 0 auto;" cellpadding="0"
-                                                                cellspacing="0" width="60%">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="color:#ffffff;">
-                                                                            Share your results on <a
-                                                                                href="https://twitter.com/search?q=%23selfie2anime">
-                                                                                Twitter with
-                                                                                <b>#selfie2anime</b></a>
-
-                                                                            <br><br>
-
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </center>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                <tr>
-                                    <td>
-
-                                        <center>
-                                            <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="60%">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="color:#313131;">
-                                                            <br>Created with <a
-                                                                href="https://selfie2anime.com/">Selfie2Anime
-                                                                アニメ</a><br>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </center>
-
-                                    </td>
-                                </tr>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222;">
+    <center style="width: 100%; background-color: #f1f1f1;">
+        <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+            &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        </div>
+        <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                   style="margin: auto;">
+                <tr>
+                    <td valign="top" class="bg_white" style="padding: 1em 2.5em;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td width="60%" class="logo" style="text-align: left;">
+                                    <h1>
+                                        <a href="https://selfie2anime.com">
+                                            Selfie<span class="text_primary">2</span>Anime&nbsp;<span
+                                                class="text_primary">アニメ</span>
+                                        </a>
+                                    </h1>
+                                </td>
+                                <td width="40%" class="logo" style="text-align: right;">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{image_url}}">
+                                        <img width="32"
+                                             height="32"
+                                             src="https://selfie2anime.com/email/facebook.png"
+                                             alt="Share on Facebook">
+                                    </a>
+                                    <a href="https://twitter.com/intent/tweet?url={{image_url}}&text=Hey, this is me as an anime character!&hashtags=selfie2anime"
+                                       target="_blank">
+                                        <img width="32"
+                                             height="32"
+                                             src="https://selfie2anime.com/email/twitter.png"
+                                             alt="Share on Twitter">
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="middle" class="bg_primary"
+                        style="height: 560px;">
+                        <div class="overlay"></div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="text" style="text-align: center">
+                                        <img width="440" height="440"
+                                             src="{{image_url}}"
+                                             alt="Your Anime Selfie!">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg_white email-section">
+                        <div class="heading-section" style="text-align: center; padding: 0 30px;">
+                            <h2>Enjoying Your Selfie?</h2>
+                            <p>Be sure to <b>share it</b> on social media!</p>
+                        </div>
+                        <table width="50%">
+                            <tr>
+                                <td>
+                                    <div class="text" style="text-align: center">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{image_url}}">
+                                            <img width="64"
+                                                 height="64"
+                                                 src="https://selfie2anime.com/email/facebook.png"
+                                                 alt="Share on Facebook">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text" style="text-align: center">
+                                        <a href="https://twitter.com/intent/tweet?url={{image_url}}&text=Hey, this is me as an anime character!&hashtags=selfie2anime"
+                                           target="_blank">
+                                            <img width="64"
+                                                 height="64"
+                                                 src="https://selfie2anime.com/email/twitter.png"
+                                                 alt="Share on Twitter">
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="middle" class="bg_primary"
+                        style="background-image: url(https://selfie2anime.com/email/wall.jpg); background-size: cover; height: 480px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bg_dark email-section" style="text-align:center;">
+                        <div class="heading-section heading-section-white">
+                            <p>
+                                Copyright &copy; 2019 by
+                                <a href="https://selfie2anime.com">Selfie2Anime.com</a>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </center>
-    </td>
-    </tr>
-    </tbody>
-    </table>
 </body>
-
 </html>
