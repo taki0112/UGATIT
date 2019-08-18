@@ -669,8 +669,6 @@ class UGATIT(object) :
 
         self.saver = tf.train.Saver()
         could_load, checkpoint_counter = self.load(self.checkpoint_dir)
-        self.result_dir = os.path.join(self.result_dir, self.model_dir)
-        check_folder(self.result_dir)
 
         if could_load :
             print(" [*] Load SUCCESS")

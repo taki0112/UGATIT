@@ -113,69 +113,89 @@ def runner(args):
     # open session
     with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
         gan = UGATIT(sess, args)
-
+ 
         # build graph
         gan.build_model()
-
+ 
         # show network architecture
         show_all_variables()
-
+ 
         while True:
             messages = get_messages_from_queue()
             # email service
             email = EmailService()
             for message in messages:
                 try:
-                    body = json.loads(message['Body'])
-                    print(body)
-                    bucket = body['bucket_name']
-                    bucket_key = body['bucket_key']
-                    file_name = body['file_name']
-                    email_addr = body['email']
-                    crop = body['crop']
-                    # Crop params
-                    x = crop['x']
-                    y = crop['y']
-                    width = crop['width']
-                    height = crop['height']
-                except:
-                    print("ERROR: Parsing message")
+                    try:
+                        body = json.loads(message['Body'])
+                        print(body)
+                        bucket = body['bucket_name']
+                        bucket_key = body['bucket_key']
+                        file_name = body['file_name']
+                        email_addr = body['email']
+                        crop = body['crop']
+                        # Crop params
+                        x = crop['x']
+                        y = crop['y']
+                        width = crop['width']
+                        height = crop['height']
+                    except Exception as e:
+                        print()
+                        print("ERROR: Parsing message")
+                        print(e)
+                        raise e
+     
+                    try:
+                        image = download_image(bucket, bucket_key)
+                    except Exception as e:
+                        print("ERROR: Downloading Image")
+                        print(e)
+                        raise e
+     
+                    try:
+                        crop_img = image[y:y+height, x:x+width]
+                        # Change color space
+                        crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
+                    except Exception as e:
+                        print("ERROR: Cropping Image")
+                        print(e)
+                        raise e
+                   
+                    try:
+                        # Resize image
+                        crop_img = cv2.resize(crop_img, dsize=(256, 256))
+                    except Exception as e:
+                        print("ERROR: Resizing Image")
+                        print(e)
+                        raise e
+     
+                    try:
+                        # do some fancy processing here....
+                        fake_img = gan.test_endpoint(crop_img)
+                    except Exception as e:
+                        print("ERROR: Prosccing image with GAN")
+                        print(e)
+                        raise e
 
-                try:
-                    image = download_image(bucket, bucket_key)
-                except:
-                    print("ERROR: Downloading Image")
-
-                try:
-                    crop_img = image[y:y+height, x:x+width]
-                    # Change color space
-                    crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
-                except:
-                    print("ERROR: Cropping Image")
-                
-                try:
-                    # Resize image
-                    crop_img = cv2.resize(crop_img, dsize=(256, 256))
-                except:
-                    print("ERROR: Resizing Image")
-
-                try:
-                    # do some fancy processing here....
-                    fake_img = gan.test_endpoint(crop_img)
-                except:
-                    print("ERROR: Prosccing image with GAN")
-                    
-                try:
-                    # Upload to S3
-                    image_url = upload_image(fake_img, file_name)
-                except:
-                    print("ERROR: Uploading image to S3")
-                
-                try:
-                    # Send Email
-                    email.send_email(email_addr, image_url)
-                except:
-                    print("ERROR: Failed to send email")
+                    try:
+                        # Upload to S3
+                        image_url = upload_image(fake_img, file_name)
+                    except Exception as e:
+                        print("ERROR: Uploading image to S3")
+                        print(e)
+                        raise e
+                   
+                    try:
+                        # Send Email
+                        email.send_email(email_addr, image_url)
+                    except Exception as e:
+                        print("ERROR: Failed to send email")
+                        print(e)
+                        raise e
+                except Exception as e:
+                    print('FATAL ERROR')
+                    print(e)
+ 
             time.sleep(10)
 
 
