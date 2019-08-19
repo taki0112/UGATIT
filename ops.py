@@ -61,13 +61,16 @@ def fully_connected_with_w(x, use_bias=True, sn=False, reuse=False, scope='linea
         if sn :
             w = tf.get_variable("kernel", [channels, 1], tf.float32,
                                      initializer=weight_init, regularizer=weight_regularizer)
+            w = spectral_norm(w)
+
             if use_bias :
                 bias = tf.get_variable("bias", [1],
                                        initializer=tf.constant_initializer(0.0))
 
-                x = tf.matmul(x, spectral_norm(w)) + bias
+                x = tf.matmul(x, w) + bias
             else :
-                x = tf.matmul(x, spectral_norm(w))
+                x = tf.matmul(x, w)
+
         else :
             x = tf.layers.dense(x, units=1, kernel_initializer=weight_init, kernel_regularizer=weight_regularizer, use_bias=use_bias)
 
