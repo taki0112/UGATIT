@@ -22,6 +22,10 @@ The results of the paper came from the **Tensorflow code**
 ## Dataset
 * [selfie2anime dataset](https://drive.google.com/file/d/1xOWj1UVgp6NKMT3HbPhBbtq2A4EDkghF/view?usp=sharing)
 
+## Web page
+* [Selfie2Anime](https://selfie2anime.com) by [Nathan Glover](https://github.com/t04glovern)
+* [Selfie2Waifu](https://waifu.lofiu.com) by [creke](https://github.com/creke)
+
 ## Usage
 ```
 ├── dataset
