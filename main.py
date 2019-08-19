@@ -119,8 +119,10 @@ def runner(args):
  
         # show network architecture
         show_all_variables()
- 
+
+        gan.test_endpoint_init()
         while True:
+            time.sleep(5)
             messages = get_messages_from_queue()
             total_msg = len(messages)
             print("[INFO] Retrieved " + str(total_msg) + " messages")
@@ -196,11 +198,10 @@ def runner(args):
                         print("ERROR: Failed to send email")
                         print(e)
                         raise e
+
                 except Exception as e:
                     print('FATAL ERROR')
                     print(e)
- 
-            time.sleep(10)
 
 
 """main"""
