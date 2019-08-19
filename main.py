@@ -122,9 +122,13 @@ def runner(args):
  
         while True:
             messages = get_messages_from_queue()
+            total_msg = len(messages)
+            print("[INFO] Retrieved " + str(total_msg) + " messages")
             # email service
             email = EmailService()
             for message in messages:
+                total_msg = total_msg - 1
+                print("[INFO] " + str(total_msg) + " messages remain in queue")
                 try:
                     try:
                         body = json.loads(message['Body'])
