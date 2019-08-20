@@ -58,26 +58,19 @@ def fully_connected_with_w(x, use_bias=True, sn=False, reuse=False, scope='linea
         shape = x.get_shape().as_list()
         channels = shape[-1]
 
+        w = tf.get_variable("kernel", [channels, 1], tf.float32,
+                            initializer=weight_init, regularizer=weight_regularizer)
+
         if sn :
-            w = tf.get_variable("kernel", [channels, 1], tf.float32,
-                                     initializer=weight_init, regularizer=weight_regularizer)
             w = spectral_norm(w)
 
-            if use_bias :
-                bias = tf.get_variable("bias", [1],
-                                       initializer=tf.constant_initializer(0.0))
+        if use_bias :
+            bias = tf.get_variable("bias", [1],
+                                   initializer=tf.constant_initializer(0.0))
 
-                x = tf.matmul(x, w) + bias
-            else :
-                x = tf.matmul(x, w)
-
+            x = tf.matmul(x, w) + bias
         else :
-            x = tf.layers.dense(x, units=1, kernel_initializer=weight_init, kernel_regularizer=weight_regularizer, use_bias=use_bias)
-
-            w = tf.get_variable('kernel', shape=[channels, 1])
-
-            if use_bias :
-                bias = tf.get_variable('bias', shape=[1])
+            x = tf.matmul(x, w)
 
         if use_bias :
             weights = tf.gather(tf.transpose(tf.nn.bias_add(w, bias)), 0)
