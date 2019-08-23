@@ -1,0 +1,73 @@
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "selfie2anime-runner-config"
+  namespace: "default"
+  labels:
+    app: "selfie2anime-runner"
+data:
+  QUEUE_NAME: "selfie2anime"
+  BUCKET_NAME: "selfie2anime"
+  SENDER_EMAIL: "info@selfie2anime.com"
+  AWS_ACCESS_KEY_ID: "xxxxxxxxxxxxxxxxxxxx"
+  AWS_SECRET_ACCESS_KEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  AWS_DEFAULT_REGION: "us-east-1"
+  PYTHONUNBUFFERED: "1"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "selfie2anime-runner"
+  namespace: "default"
+  labels:
+    app: "selfie2anime-runner"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "selfie2anime-runner"
+  template:
+    metadata:
+      labels:
+        app: "selfie2anime-runner"
+    spec:
+      containers:
+      - name: "selfie2anime-ugatit"
+        image: "gcr.io/devopstar/selfie2anime-ugatit:latest"
+        env:
+        - name: "QUEUE_NAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "QUEUE_NAME"
+              name: "selfie2anime-runner-config"
+        - name: "BUCKET_NAME"
+          valueFrom:
+            configMapKeyRef:
+              key: "BUCKET_NAME"
+              name: "selfie2anime-runner-config"
+        - name: "SENDER_EMAIL"
+          valueFrom:
+            configMapKeyRef:
+              key: "SENDER_EMAIL"
+              name: "selfie2anime-runner-config"
+        - name: "AWS_ACCESS_KEY_ID"
+          valueFrom:
+            configMapKeyRef:
+              key: "AWS_ACCESS_KEY_ID"
+              name: "selfie2anime-runner-config"
+        - name: "AWS_SECRET_ACCESS_KEY"
+          valueFrom:
+            configMapKeyRef:
+              key: "AWS_SECRET_ACCESS_KEY"
+              name: "selfie2anime-runner-config"
+        - name: "AWS_DEFAULT_REGION"
+          valueFrom:
+            configMapKeyRef:
+              key: "AWS_DEFAULT_REGION"
+              name: "selfie2anime-runner-config"
+        - name: "PYTHONUNBUFFERED"
+          valueFrom:
+            configMapKeyRef:
+              key: "PYTHONUNBUFFERED"
+              name: "selfie2anime-runner-config"

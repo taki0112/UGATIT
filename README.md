@@ -83,7 +83,7 @@ Images need to be sized to 256x256. You can do this by using the `resize.py` scr
 ### Runner
 
 ```bash
-> QUEUE_NAME=<queue_name> BUCKET_NAME=<bucket_name> SENDER_EMAIL=<sender_image> python main.py --dataset selfie2anime --phase runner
+> QUEUE_NAME=<queue_name> BUCKET_NAME=<bucket_name> SENDER_EMAIL=<sender_image> python main.py --dataset selfie2anime
 ```
 
 ## Architecture

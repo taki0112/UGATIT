@@ -39,7 +39,7 @@ patch_request_class(app)  # set maximum file size, default is 16MB
 def parse_args():
     desc = "Tensorflow implementation of U-GAT-IT"
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('--phase', type=str, default='web', help='[train / test / web]')
+    parser.add_argument('--phase', type=str, default='runner', help='[train / test / web / runner]')
     parser.add_argument('--light', type=str2bool, default=False, help='[U-GAT-IT full version / U-GAT-IT light version]')
     parser.add_argument('--dataset', type=str, default='selfie2anime', help='dataset_name')
 

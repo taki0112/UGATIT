@@ -80,8 +80,8 @@ RUN wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip \
 
 RUN rm /opt/${OPENCV_VERSION}.zip
 
-RUN conda install -y tensorflow-gpu tensorboard jupyter numpy pip
-RUN pip install opencv-python Pillow flask jsonpickle requests flask-uploads flask-dropzone
+RUN conda install -y tensorflow-gpu tensorboard jupyter numpy pip matplotlib
+RUN pip install boto3 flask-dropzone flask-uploads requests jsonpickle flask Pillow opencv-python
 
 COPY . /app
 WORKDIR /app
