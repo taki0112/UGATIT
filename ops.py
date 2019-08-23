@@ -58,23 +58,19 @@ def fully_connected_with_w(x, use_bias=True, sn=False, reuse=False, scope='linea
         shape = x.get_shape().as_list()
         channels = shape[-1]
 
+        w = tf.get_variable("kernel", [channels, 1], tf.float32,
+                            initializer=weight_init, regularizer=weight_regularizer)
+
         if sn :
-            w = tf.get_variable("kernel", [channels, 1], tf.float32,
-                                     initializer=weight_init, regularizer=weight_regularizer)
-            if use_bias :
-                bias = tf.get_variable("bias", [1],
-                                       initializer=tf.constant_initializer(0.0))
+            w = spectral_norm(w)
 
-                x = tf.matmul(x, spectral_norm(w)) + bias
-            else :
-                x = tf.matmul(x, spectral_norm(w))
+        if use_bias :
+            bias = tf.get_variable("bias", [1],
+                                   initializer=tf.constant_initializer(0.0))
+
+            x = tf.matmul(x, w) + bias
         else :
-            x = tf.layers.dense(x, units=1, kernel_initializer=weight_init, kernel_regularizer=weight_regularizer, use_bias=use_bias)
-
-            w = tf.get_variable('kernel', shape=[channels, 1])
-
-            if use_bias :
-                bias = tf.get_variable('bias', shape=[1])
+            x = tf.matmul(x, w)
 
         if use_bias :
             weights = tf.gather(tf.transpose(tf.nn.bias_add(w, bias)), 0)
@@ -191,12 +187,10 @@ def adaptive_instance_layer_norm(x, gamma, beta, smoothing=True, scope='instance
         ln_mean, ln_sigma = tf.nn.moments(x, axes=[1, 2, 3], keep_dims=True)
         x_ln = (x - ln_mean) / (tf.sqrt(ln_sigma + eps))
 
-        if smoothing :
-            rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(0.9), constraint=lambda x : tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=0.9))
-        else :
-            rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(1.0), constraint=lambda x: tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=1.0))
+        rho = tf.get_variable("rho", [ch], initializer=tf.constant_initializer(1.0), constraint=lambda x: tf.clip_by_value(x, clip_value_min=0.0, clip_value_max=1.0))
 
-        # rho = tf.clip_by_value(rho - tf.constant(0.1), 0.0, 1.0)
+        if smoothing :
+            rho = tf.clip_by_value(rho - tf.constant(0.1), 0.0, 1.0)
 
         x_hat = rho * x_ins + (1 - rho) * x_ln
 
