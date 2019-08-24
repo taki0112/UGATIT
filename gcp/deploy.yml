@@ -9,7 +9,7 @@ metadata:
 data:
   QUEUE_NAME: "selfie2anime"
   BUCKET_NAME: "selfie2anime"
-  SENDER_EMAIL: "info@selfie2anime.com"
+  SENDER_EMAIL: "noreply@selfie2anime.com"
   AWS_ACCESS_KEY_ID: "xxxxxxxxxxxxxxxxxxxx"
   AWS_SECRET_ACCESS_KEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   AWS_DEFAULT_REGION: "us-east-1"
