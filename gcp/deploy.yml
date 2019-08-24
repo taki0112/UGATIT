@@ -71,3 +71,7 @@ spec:
             configMapKeyRef:
               key: "PYTHONUNBUFFERED"
               name: "selfie2anime-runner-config"
+        resources:
+          requests:
+            memory: 4.5Gi
+            cpu: 1000m

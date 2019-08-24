@@ -1,0 +1,71 @@
+{
+  "cluster": {
+    "name": "selfie2anime-gke",
+    "masterAuth": {
+      "clientCertificateConfig": {}
+    },
+    "loggingService": "logging.googleapis.com",
+    "monitoringService": "monitoring.googleapis.com",
+    "network": "projects/devopstar/global/networks/default",
+    "addonsConfig": {
+      "httpLoadBalancing": {},
+      "horizontalPodAutoscaling": {},
+      "kubernetesDashboard": {
+        "disabled": true
+      },
+      "istioConfig": {
+        "disabled": true
+      }
+    },
+    "subnetwork": "projects/devopstar/regions/us-west1/subnetworks/default",
+    "nodePools": [
+      {
+        "name": "default-pool",
+        "config": {
+          "machineType": "n1-standard-2",
+          "diskSizeGb": 150,
+          "oauthScopes": [
+            "https://www.googleapis.com/auth/devstorage.read_only",
+            "https://www.googleapis.com/auth/logging.write",
+            "https://www.googleapis.com/auth/monitoring",
+            "https://www.googleapis.com/auth/servicecontrol",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            "https://www.googleapis.com/auth/trace.append"
+          ],
+          "metadata": {
+            "disable-legacy-endpoints": "true"
+          },
+          "imageType": "COS",
+          "preemptible": true,
+          "diskType": "pd-standard"
+        },
+        "initialNodeCount": 2,
+        "autoscaling": {
+          "enabled": true,
+          "minNodeCount": 2,
+          "maxNodeCount": 3
+        },
+        "management": {
+          "autoUpgrade": true,
+          "autoRepair": true
+        },
+        "version": "1.13.7-gke.24"
+      }
+    ],
+    "networkPolicy": {},
+    "ipAllocationPolicy": {
+      "useIpAliases": true
+    },
+    "masterAuthorizedNetworksConfig": {},
+    "defaultMaxPodsConstraint": {
+      "maxPodsPerNode": "110"
+    },
+    "authenticatorGroupsConfig": {},
+    "privateClusterConfig": {},
+    "databaseEncryption": {
+      "state": "DECRYPTED"
+    },
+    "initialClusterVersion": "1.13.7-gke.24",
+    "location": "us-west1-a"
+  }
+}
