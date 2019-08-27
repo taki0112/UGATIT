@@ -35,6 +35,7 @@ spec:
       containers:
       - name: "selfie2anime-ugatit"
         image: "gcr.io/devopstar/selfie2anime-ugatit:latest"
+        imagePullPolicy: "Always"
         env:
         - name: "QUEUE_NAME"
           valueFrom:

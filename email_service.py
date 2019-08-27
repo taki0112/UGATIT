@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import re
 import boto3
+import urllib.parse
 
 
 class EmailService(object):
@@ -43,9 +44,11 @@ class EmailService(object):
 
     @staticmethod
     def build_email_body(image_url):
+        image_url_escaped = urllib.parse.quote(image_url)
         html_file = join(dirname(__file__),
                          'templates', 'template.html')
         html_file = open(html_file, 'r')
         email = html_file.read()
         email = email.replace('{{image_url}}', image_url)
+        email = email.replace('{{image_url_escaped}}', image_url_escaped)
         return email
