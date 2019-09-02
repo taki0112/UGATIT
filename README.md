@@ -92,13 +92,11 @@ The results of the paper came from the **Tensorflow code**
 If you find this code useful for your research, please cite our paper:
 
 ```
-@misc{kim2019ugatit,
-    title={U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
-    author={Junho Kim and Minjae Kim and Hyeonwoo Kang and Kwanghee Lee},
-    year={2019},
-    eprint={1907.10830},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
+@article{kim2019u,
+  title={U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
+  author={Kim, Junho and Kim, Minjae and Kang, Hyeonwoo and Lee, Kwanghee},
+  journal={arXiv preprint arXiv:1907.10830},
+  year={2019}
 }
 ```
 
