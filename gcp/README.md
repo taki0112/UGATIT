@@ -37,3 +37,15 @@ gsutil cp gs://devopstar/projects/data-science/UGATIT/*.zip ./dataset
 cd dataset
 unzip selfie2anime.zip
 ```
+
+## Kubernetes [Fuse]
+
+```bash
+gsutil -m rsync -d -r checkpoint/ gs://selfie2anime
+
+docker build -t gcr.io/devopstar/selfie2anime:latest .
+docker push gcr.io/devopstar/selfie2anime:latest
+
+# When connected to Kubernetes
+kubectl apply -f deploy.yml
+```

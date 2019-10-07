@@ -2,10 +2,10 @@
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "selfie2anime-runner-config"
+  name: "selfie2anime-slim-config"
   namespace: "default"
   labels:
-    app: "selfie2anime-runner"
+    app: "selfie2anime-slim"
 data:
   QUEUE_NAME: "selfie2anime"
   BUCKET_NAME: "selfie2anime"
@@ -18,24 +18,29 @@ data:
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "selfie2anime-runner"
+  name: "selfie2anime-slim"
   namespace: "default"
   labels:
-    app: "selfie2anime-runner"
+    app: "selfie2anime-slim"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "selfie2anime-runner"
+      app: "selfie2anime-slim"
   template:
     metadata:
       labels:
-        app: "selfie2anime-runner"
+        app: "selfie2anime-slim"
     spec:
       containers:
-      - name: "selfie2anime-ugatit"
-        image: "gcr.io/devopstar/selfie2anime-ugatit:latest"
+      - name: "selfie2anime"
+        image: "gcr.io/devopstar/selfie2anime:latest"
         imagePullPolicy: "Always"
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_ADMIN
         env:
         - name: "QUEUE_NAME"
           valueFrom:
@@ -76,3 +81,10 @@ spec:
           requests:
             memory: 4.5Gi
             cpu: 1000m
+        lifecycle:
+          postStart:
+            exec:
+              command: ["gcsfuse", "-o", "nonempty", "selfie2anime", "/app/checkpoint"]
+          preStop:
+            exec:
+              command: ["fusermount", "-u", "/app/checkpoint"]
