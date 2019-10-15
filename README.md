@@ -86,18 +86,3 @@ The results of the paper came from the **Tensorflow code**
 <div align="center">
   <img src = './assets/kid.png' width = '787px' height = '344px'>
 </div>
-
-## Citation
-If you find this code useful for your research, please cite our paper:
-
-```
-@article{kim2019u,
-  title={U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
-  author={Kim, Junho and Kim, Minjae and Kang, Hyeonwoo and Lee, Kwanghee},
-  journal={arXiv preprint arXiv:1907.10830},
-  year={2019}
-}
-```
-
-## Author
-[Junho Kim](http://bit.ly/jhkim_ai), Minjae Kim, Hyeonwoo Kang, Kwanghee Lee
