@@ -1,4 +1,4 @@
-## U-GAT-IT &mdash; Official TensorFlow Implementation
+## U-GAT-IT &mdash; Official TensorFlow Implementation (ICLR 2020)
 ### : Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation
 
 <div align="center">
