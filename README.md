@@ -30,6 +30,9 @@ The results of the paper came from the **Tensorflow code**
 * [Selfie2Anime](https://selfie2anime.com) by [Nathan Glover](https://github.com/t04glovern)
 * [Selfie2Waifu](https://waifu.lofiu.com) by [creke](https://github.com/creke)
 
+## Telegram Bot
+* [Selfie2AnimeBot](https://t.me/selfie2animebot) by [Alex Spirin](https://github.com/sxela)
+
 ## Usage
 ```
 ├── dataset
