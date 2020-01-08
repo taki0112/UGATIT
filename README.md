@@ -92,7 +92,7 @@ The results of the paper came from the **Tensorflow code**
 
 ### Kernel Inception Distance (KID)
 <div align="center">
-  <img src = './assets/kid_fix.png' width = '787px' height = '344px'>
+  <img src = './assets/kid_fix.png' width = '864px' height = '461px'>
 </div>
 
 ## Citation
