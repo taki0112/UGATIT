@@ -6,8 +6,7 @@
 </div>
 
 ### [Paper](https://openreview.net/pdf?id=BJlZ5ySKPH) | [Official Pytorch code](https://github.com/znxlwm/UGATIT-pytorch)
-
-The results of the paper came from the **Tensorflow code**
+This repository provides the **official Tensorflow implementation** of the following paper:
 
 > **U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation**<br>
 > **Junho Kim (NCSOFT)**, Minjae Kim (NCSOFT), Hyeonwoo Kang (NCSOFT), Kwanghee Lee (Boeing Korea)
