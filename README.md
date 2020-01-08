@@ -91,7 +91,7 @@ This repository provides the **official Tensorflow implementation** of the follo
 
 ### Kernel Inception Distance (KID)
 <div align="center">
-  <img src = './assets/kid_fix.png' width = '864px' height = '461px'>
+  <img src = './assets/kid_fix2.png' width = '1295px' height = '682px'>
 </div>
 
 ## Citation
