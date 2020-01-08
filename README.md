@@ -70,13 +70,13 @@ The results of the paper came from the **Tensorflow code**
 
 ## Architecture
 <div align="center">
-  <img src = './assets/generator.png' width = '785px' height = '500px'>
+  <img src = './assets/generator_fix.png' width = '785px' height = '500px'>
 </div>
 
 ---
 
 <div align="center">
-  <img src = './assets/discriminator.png' width = '785px' height = '450px'>
+  <img src = './assets/discriminator_fix.png' width = '785px' height = '450px'>
 </div>
 
 ## Results
@@ -92,7 +92,7 @@ The results of the paper came from the **Tensorflow code**
 
 ### Kernel Inception Distance (KID)
 <div align="center">
-  <img src = './assets/kid.png' width = '787px' height = '344px'>
+  <img src = './assets/kid_fix.png' width = '787px' height = '344px'>
 </div>
 
 ## Citation
