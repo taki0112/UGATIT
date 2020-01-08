@@ -98,11 +98,13 @@ This repository provides the **official Tensorflow implementation** of the follo
 If you find this code useful for your research, please cite our paper:
 
 ```
-@article{kim2019u,
-  title={U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
-  author={Kim, Junho and Kim, Minjae and Kang, Hyeonwoo and Lee, Kwanghee},
-  journal={arXiv preprint arXiv:1907.10830},
-  year={2019}
+@inproceedings{
+kim2020ugatit,
+title={U-{\{}GAT{\}}-{\{}IT{\}}: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
+author={Junho Kim and Minjae Kim and Hyeonwoo Kang and Kwang Hee Lee},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=BJlZ5ySKPH}
 }
 ```
 
