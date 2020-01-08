@@ -5,7 +5,7 @@
   <img src="./assets/teaser.png">
 </div>
 
-### [Paper](https://arxiv.org/abs/1907.10830) | [Official Pytorch code](https://github.com/znxlwm/UGATIT-pytorch)
+### [Paper](https://openreview.net/pdf?id=BJlZ5ySKPH) | [Official Pytorch code](https://github.com/znxlwm/UGATIT-pytorch)
 
 The results of the paper came from the **Tensorflow code**
 
