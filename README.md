@@ -5,7 +5,7 @@
   <img src="./assets/teaser.png">
 </div>
 
-### [Paper](https://openreview.net/pdf?id=BJlZ5ySKPH) | [Official Pytorch code](https://github.com/znxlwm/UGATIT-pytorch)
+### [Paper](https://arxiv.org/abs/1907.10830) | [Official Pytorch code](https://github.com/znxlwm/UGATIT-pytorch)
 This repository provides the **official Tensorflow implementation** of the following paper:
 
 > **U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation**<br>
