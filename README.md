@@ -99,8 +99,8 @@ If you find this code useful for your research, please cite our paper:
 
 ```
 @inproceedings{
-kim2020ugatit,
-title={U-{\{}GAT{\}}-{\{}IT{\}}: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
+Kim2020U-GAT-IT:,
+title={U-GAT-IT: Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation},
 author={Junho Kim and Minjae Kim and Hyeonwoo Kang and Kwang Hee Lee},
 booktitle={International Conference on Learning Representations},
 year={2020},
