@@ -77,4 +77,4 @@ def check_folder(log_dir):
     return log_dir
 
 def str2bool(x):
-    return x.lower() in ('true')
+    return x.lower() in ('true',)
