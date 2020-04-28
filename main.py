@@ -14,10 +14,8 @@ import jsonpickle
 import uuid
 import time
 
-
 app = Flask(__name__)
 dropzone = Dropzone(app)
-
 
 app.config['SECRET_KEY'] = 'supersecretkeygoeshere'
 
@@ -36,11 +34,13 @@ patch_request_class(app)  # set maximum file size, default is 16MB
 
 """parsing and configuration"""
 
+
 def parse_args():
     desc = "Tensorflow implementation of U-GAT-IT"
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='runner', help='[train / test / web / runner]')
-    parser.add_argument('--light', type=str2bool, default=False, help='[U-GAT-IT full version / U-GAT-IT light version]')
+    parser.add_argument('--light', type=str2bool, default=False,
+                        help='[U-GAT-IT full version / U-GAT-IT light version]')
     parser.add_argument('--dataset', type=str, default='selfie2anime', help='dataset_name')
 
     parser.add_argument('--epoch', type=int, default=100, help='The number of epochs to run')
@@ -57,7 +57,8 @@ def parse_args():
     parser.add_argument('--cycle_weight', type=int, default=10, help='Weight about Cycle')
     parser.add_argument('--identity_weight', type=int, default=10, help='Weight about Identity')
     parser.add_argument('--cam_weight', type=int, default=1000, help='Weight about CAM')
-    parser.add_argument('--gan_type', type=str, default='lsgan', help='[gan / lsgan / wgan-gp / wgan-lp / dragan / hinge]')
+    parser.add_argument('--gan_type', type=str, default='lsgan',
+                        help='[gan / lsgan / wgan-gp / wgan-lp / dragan / hinge]')
 
     parser.add_argument('--smoothing', type=str2bool, default=True, help='AdaLIN smoothing effect')
 
@@ -82,7 +83,10 @@ def parse_args():
 
     return check_args(parser.parse_args())
 
+
 """checking arguments"""
+
+
 def check_args(args):
     # --checkpoint_dir
     check_folder(args.checkpoint_dir)
@@ -109,14 +113,15 @@ def check_args(args):
         print('batch size must be larger than or equal to one')
     return args
 
+
 def runner(args):
     # open session
     with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
         gan = UGATIT(sess, args)
- 
+
         # build graph
         gan.build_model()
- 
+
         # show network architecture
         show_all_variables()
 
@@ -137,6 +142,7 @@ def runner(args):
                         print(body)
                         bucket = body['bucket_name']
                         bucket_key = body['bucket_key']
+                        bucket_cropped_key = body.get('bucket_cropped_key', None)
                         file_name = body['file_name']
                         email_addr = body['email']
                         crop = body['crop']
@@ -150,31 +156,40 @@ def runner(args):
                         print("ERROR: Parsing message")
                         print(e)
                         raise e
-     
-                    try:
-                        image = download_image(bucket, bucket_key)
-                    except Exception as e:
-                        print("ERROR: Downloading Image")
-                        print(e)
-                        raise e
-     
-                    try:
-                        crop_img = image[y:y+height, x:x+width]
-                        # Change color space
-                        crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
-                    except Exception as e:
-                        print("ERROR: Cropping Image")
-                        print(e)
-                        raise e
-                   
-                    try:
-                        # Resize image
-                        crop_img = cv2.resize(crop_img, dsize=(256, 256))
-                    except Exception as e:
-                        print("ERROR: Resizing Image")
-                        print(e)
-                        raise e
-     
+
+                    if bucket_cropped_key is None:
+                        try:
+                            image = download_image(bucket, bucket_key)
+                        except Exception as e:
+                            print("ERROR: Downloading Image")
+                            print(e)
+                            raise e
+
+                        try:
+                            crop_img = image[y:y + height, x:x + width]
+                            # Change color space
+                            crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
+                        except Exception as e:
+                            print("ERROR: Cropping Image")
+                            print(e)
+                            raise e
+
+                        try:
+                            # Resize image
+                            crop_img = cv2.resize(crop_img, dsize=(256, 256))
+                        except Exception as e:
+                            print("ERROR: Resizing Image")
+                            print(e)
+                            raise e
+                    else:
+                        try:
+                            crop_img = download_image(bucket, bucket_cropped_key)
+                            crop_img = cv2.cvtColor(crop_img, cv2.COLOR_RGB2BGR)
+                        except Exception as e:
+                            print("ERROR: Downloading Cropped Image")
+                            print(e)
+                            raise e
+
                     try:
                         # do some fancy processing here....
                         fake_img = gan.test_endpoint(crop_img)
@@ -190,7 +205,7 @@ def runner(args):
                         print("ERROR: Uploading image to S3")
                         print(e)
                         raise e
-                   
+
                     try:
                         # Send Email
                         email.send_email(email_addr, image_url)
@@ -204,17 +219,16 @@ def runner(args):
                     print(e)
 
 
-"""main"""
 def main():
     # parse arguments
     args = parse_args()
     if args is None:
-      exit()
+        exit()
 
-    if args.phase == 'runner' :
+    if args.phase == 'runner':
         runner(args)
 
-    if args.phase == 'web' :
+    if args.phase == 'web':
         app.run(host="0.0.0.0", port=5000)
 
     # open session
@@ -227,18 +241,18 @@ def main():
         # show network architecture
         show_all_variables()
 
-        if args.phase == 'train' :
+        if args.phase == 'train':
             gan.train()
             print(" [*] Training finished!")
 
-        if args.phase == 'test' :
+        if args.phase == 'test':
             gan.test()
             print(" [*] Test finished!")
+
 
 # route http posts to this method
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     # set session for image results
     if "file_urls" not in session:
         session['file_urls'] = []
@@ -283,18 +297,19 @@ def index():
         return "uploading..."
     return render_template('index.html')
 
+
 @app.route('/results')
 def results():
-    
     # redirect to home if no images to display
     if "file_urls" not in session or session['file_urls'] == []:
         return redirect(url_for('index'))
-        
+
     # set the file_urls and remove the session variable
     file_urls = session['file_urls']
     session.pop('file_urls', None)
-    
+
     return render_template('results.html', file_urls=file_urls)
+
 
 if __name__ == '__main__':
     main()
