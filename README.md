@@ -32,6 +32,9 @@ This repository provides the **official Tensorflow implementation** of the follo
 ## Telegram Bot
 * [Selfie2AnimeBot](https://t.me/selfie2animebot) by [Alex Spirin](https://github.com/sxela)
 
+## Mobile app
+* [Selfie2Anime with TensorFlow Lite](https://github.com/margaretmz/selfie2anime-with-tflite) by [Margaret Maynard-Reid](https://github.com/margaretmz) and [Sayak Paul](https://github.com/sayakpaul)
+
 ## Usage
 ```
 ├── dataset
